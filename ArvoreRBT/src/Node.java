@@ -8,6 +8,11 @@ public class Node<T>{
     private Node<T> father;
     private Colors color;
 
+    public Node(T value){
+        this.value = value;
+        this.color = Colors.RED;
+    }
+
     public T getValue() {
         return value;
     }
