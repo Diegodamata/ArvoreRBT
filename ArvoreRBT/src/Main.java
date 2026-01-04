@@ -28,7 +28,38 @@ public class Main {
 
         inOrder(root);
 
+        System.out.println();
+        System.out.print("Deseja fazer uma busca? (1 - Sim / 2 - Não): ");
+        opc = scanner.nextInt();
+        if (opc == 1){
+            System.out.print("Informe o valor a ser encontrado: ");
+            int value = scanner.nextInt();
+            Node<Integer> nodeEncontrado = buscar(root, value);
+            if (nodeEncontrado != null){
+                System.out.println("Valor encontrado!");
+                System.out.print("Valor: " + nodeEncontrado.getValue() + " Cor: " + nodeEncontrado.getColor());
+            }
+        }
+        else {
+            System.out.println("Opção invalida!");
+        }
+
         scanner.close();
+    }
+
+    private static Node<Integer> buscar(Node<Integer> root, int value) {
+        if (root == null) return null;
+
+        if (root.getValue() == value){
+            return root;
+        }
+
+        if (value <= root.getValue()){
+            return buscar(root.getLeft(), value);
+        }
+        else {
+            return buscar(root.getRight(), value);
+        }
     }
 
     public static void insert(int value){
