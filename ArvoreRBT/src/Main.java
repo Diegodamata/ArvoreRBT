@@ -80,7 +80,37 @@ public class Main {
                         rotacaoEsquerda(node.getFather());
                         node = node.getLeft();
                     }
+                    rotacaoDireita(avo);
+                    avo.setColor(Colors.RED);
+                    pai.setColor(Colors.BLACK);
+                    node = node.getFather();
                 }
+            }
+        }
+    }
+
+    private static void rotacaoDireita(Node<Integer> node) {
+        Node<Integer> x = node.getLeft();
+        Node<Integer> y = x.getRight();
+
+        x.setRight(node);
+        node.setLeft(y);
+        if (y != null){
+            y.setFather(node);
+        }
+
+        x.setFather(node.getFather());
+        node.setFather(x);
+
+        if (x.getFather() == null){
+            root = x;
+        }
+        else {
+            if (x.getRight() == x.getFather().getRight()){
+                x.getFather().setRight(x);
+            }
+            else {
+                x.getFather().setLeft(x);
             }
         }
     }
