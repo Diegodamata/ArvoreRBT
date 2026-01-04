@@ -86,6 +86,27 @@ public class Main {
                     node = node.getFather();
                 }
             }
+            else {
+                Node<Integer> tio = avo.getLeft();
+
+                if (tio != null && tio.getColor() == Colors.RED){
+                    pai.setColor(Colors.BLACK);
+                    tio.setColor(Colors.BLACK);
+                    avo.setColor(Colors.RED);
+                    node = avo;
+                }
+                else {
+
+                    if (node == pai.getLeft()){
+                        rotacaoDireita(node.getFather());
+                        node = node.getRight();
+                    }
+                    rotacaoEsquerda(avo);
+                    avo.setColor(Colors.RED);
+                    pai.setColor(Colors.BLACK);
+                    node = node.getFather();
+                }
+            }
         }
     }
 
