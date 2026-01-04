@@ -6,6 +6,13 @@ public class Main {
     static Node<Integer> root;
     public static void main(String[] args) {
 
+        //Regras da RBT
+        //1 - todo node pode ser RED ou BLACK
+        //2 - a raiz sempre é BLACK
+        //3 - um node RED não pode ter um pai RED
+        //4 - valores nulos é considerados BLACK
+        //5 - da raiz ate as ultimas folhas tem a mesma quantidade de nodes BLACK
+
         Scanner scanner = new Scanner(System.in);
 
         System.out.print("Deseja inserir? (1 - Sim / 2 - Não): ");
@@ -29,6 +36,8 @@ public class Main {
 
         root = bstInsert(root, novoNode);
 
+        verificarRotacao(novoNode);
+
         root.setColor(Colors.BLACK);
     }
 
@@ -48,6 +57,26 @@ public class Main {
         }
 
         return root;
+    }
+
+    public static void verificarRotacao(Node<Integer> node){
+
+        while (node.getFather() != null && node.getFather().getColor() == Colors.RED){
+
+            Node<Integer> pai = node.getFather();
+            Node<Integer> avo = pai.getFather();
+
+            if (pai == avo.getLeft()){
+                Node<Integer> tio = avo.getRight();
+
+                if (tio != null && tio.getColor() == Colors.RED){
+                    pai.setColor(Colors.BLACK);
+                    tio.setColor(Colors.BLACK);
+                    avo.setColor(Colors.RED);
+                    node = avo;
+                }
+            }
+        }
     }
 
     public static void inOrder(Node<Integer> root){
