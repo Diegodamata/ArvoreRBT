@@ -75,9 +75,42 @@ public class Main {
                     avo.setColor(Colors.RED);
                     node = avo;
                 }
+                else {
+                    if (node == pai.getRight()){
+                        rotacaoEsquerda(node.getFather());
+                        node = node.getLeft();
+                    }
+                }
             }
         }
     }
+
+    private static void rotacaoEsquerda(Node<Integer> node) {
+        Node<Integer> x = node.getRight();
+        Node<Integer> y = x.getLeft();
+
+        x.setLeft(node);
+        node.setRight(y);
+        if (y != null){
+            y.setFather(node);
+        }
+
+        x.setFather(node.getFather());
+        node.setFather(x);
+
+        if (x.getFather() == null){
+            root = x;
+        }
+        else {
+            if (x.getLeft() == x.getFather().getLeft()){
+                x.getFather().setLeft(x);
+            }
+            else {
+                x.getFather().setRight(x);
+            }
+        }
+    }
+
 
     public static void inOrder(Node<Integer> root){
         if (root == null) return;
